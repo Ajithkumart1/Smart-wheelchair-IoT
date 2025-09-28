@@ -221,10 +221,6 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 - Documentation improvements
 - Hardware optimizations
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 👨‍💻 Contact
 
 For questions, suggestions, or collaboration opportunities, please reach out:
