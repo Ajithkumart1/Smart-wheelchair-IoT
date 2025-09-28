@@ -229,9 +229,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 For questions, suggestions, or collaboration opportunities, please reach out:
 
-- **Project Repository**: [GitHub Link]
-- **Email**: [Your Email]
-- **LinkedIn**: [Your Profile]
+- **Project Repository**: (https://github.com/Ajithkumart1/Smart-wheelchair-IoT)
+- **Email**: [ajithkumart111@gmail.com]
+- **LinkedIn**: [www.linkedin.com/in/ajithkumart11]
 
 ---
 
