@@ -374,7 +374,7 @@ void processPICData(String data) {
 - **Blynk Documentation**: https://docs.blynk.io/
 - **ESP8266 Arduino Core**: https://github.com/esp8266/Arduino
 - **Blynk Community**: https://community.blynk.cc/
-- **Project GitHub**: [Your Repository Link]
+- **Project GitHub**: [https://github.com/Ajithkumart1/Smart-wheelchair-IoT]
 
 ---
 
