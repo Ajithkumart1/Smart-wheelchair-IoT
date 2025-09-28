@@ -1,0 +1,124 @@
+/*
+ * ESP8266 WiFi Module Code for Smart Wheelchair
+ * Simple UART bridge between PIC16F877A and Blynk App
+ */
+
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+// Blynk Auth Token - Replace with your token from Blynk app
+char auth[] = "YourBlynkAuthTokenHere";
+
+// WiFi credentials - Replace with your network details
+char ssid[] = "YourWiFiName";
+char pass[] = "YourWiFiPassword";
+
+// Timer for sending data to Blynk
+BlynkTimer timer;
+
+void setup() {
+  // Initialize serial communication with PIC16F877A
+  Serial.begin(9600);
+  
+  // Connect to Blynk
+  Blynk.begin(auth, ssid, pass);
+  
+  // Setup timer to handle periodic tasks
+  timer.setInterval(1000L, sendDataToBlynk);
+}
+
+void loop() {
+  Blynk.run();
+  timer.run();
+  
+  // Read data from PIC and forward to Blynk
+  if (Serial.available()) {
+    String data = Serial.readString();
+    parseAndSendData(data);
+  }
+}
+
+// Parse data from PIC and send to Blynk app
+void parseAndSendData(String data) {
+  // Expected format: "DIST:XXcm,BPM:XXX,DIR:XXXXXXX,SPD:XXX"
+  
+  // Parse distance
+  int distStart = data.indexOf("DIST:") + 5;
+  if (distStart > 4) {
+    int distEnd = data.indexOf("cm");
+    if (distEnd > distStart) {
+      int distance = data.substring(distStart, distEnd).toInt();
+      Blynk.virtualWrite(V10, distance);
+    }
+  }
+  
+  // Parse heart rate
+  int bpmStart = data.indexOf("BPM:") + 4;
+  if (bpmStart > 3) {
+    int bpmEnd = data.indexOf(",", bpmStart);
+    if (bpmEnd > bpmStart) {
+      int bpm = data.substring(bpmStart, bpmEnd).toInt();
+      Blynk.virtualWrite(V11, bpm);
+    }
+  }
+  
+  // Parse direction
+  int dirStart = data.indexOf("DIR:") + 4;
+  if (dirStart > 3) {
+    int dirEnd = data.indexOf(",", dirStart);
+    if (dirEnd > dirStart) {
+      String direction = data.substring(dirStart, dirEnd);
+      Blynk.virtualWrite(V12, direction);
+    }
+  }
+}
+
+// Send periodic data request to PIC
+void sendDataToBlynk() {
+  Blynk.virtualWrite(V13, 255); // System status LED
+}
+
+// Blynk Virtual Pin Handlers - Receive commands from app and send to PIC
+
+// Forward button
+BLYNK_WRITE(V3) {
+  if (param.asInt()) {
+    Serial.write('F');
+  }
+}
+
+// Backward button  
+BLYNK_WRITE(V4) {
+  if (param.asInt()) {
+    Serial.write('B');
+  }
+}
+
+// Left button
+BLYNK_WRITE(V5) {
+  if (param.asInt()) {
+    Serial.write('L');
+  }
+}
+
+// Right button
+BLYNK_WRITE(V6) {
+  if (param.asInt()) {
+    Serial.write('R');
+  }
+}
+
+// Stop button
+BLYNK_WRITE(V7) {
+  if (param.asInt()) {
+    Serial.write('S');
+  }
+}
+
+// Speed control (0-9)
+BLYNK_WRITE(V2) {
+  int speed = param.asInt();
+  if (speed >= 0 && speed <= 9) {
+    Serial.write('0' + speed);
+  }
+}

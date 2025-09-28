@@ -1,0 +1,60 @@
+# PIC Microcontroller Files
+*.hex
+*.cof
+*.obj
+*.o
+*.lst
+*.map
+*.err
+*.sym
+*.esym
+*.tre
+*.pre
+
+# MPLAB Files
+*.mcp
+*.mcw
+*.mcs
+*.mptags
+*~
+
+# Proteus Simulation Files
+*.PWI
+*.DBK
+*.DSN~
+*.PWI~
+*.LOG
+*.DDF
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE Files
+.vscode/
+.idea/
+*.sublime-*
+
+# Documentation temporary files
+~$*.docx
+~$*.pptx
+~$*.xlsx
+
+# Build directories
+build/
+dist/
+debug/
+release/
